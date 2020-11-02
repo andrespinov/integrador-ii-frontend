@@ -10,9 +10,8 @@ const Login = () => {
   const dispatch = useDispatch()
 
   const handleLogin = useCallback((payload) => {
-    console.log(payload)
     dispatch(login(payload))
-  }, [])
+  }, [dispatch])
 
   return (
     <LoginContainer>
