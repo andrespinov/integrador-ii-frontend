@@ -7,10 +7,10 @@ function timeout (ms, promise) {
   })
 }
 
-const fetch = async (method, url, data) => {
+const _fetch = async (method, url, data) => {
   const token = ''
   const defaultHeaders = {}
-  const apiUrl = ''
+  const apiUrl = 'https://app-garage-back.herokuapp.com'
 
   defaultHeaders.Authorization = token  ? `Bearer ${token}` : ''
   defaultHeaders['Content-Type'] = 'application/json'
@@ -33,4 +33,4 @@ const fetch = async (method, url, data) => {
   )
 }
 
-export default fetch
+export default _fetch

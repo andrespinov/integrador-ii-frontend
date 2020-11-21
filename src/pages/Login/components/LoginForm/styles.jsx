@@ -13,6 +13,11 @@ const LoginFormContainer = styled.div`
   .header {
     margin-bottom: 30px;
   }
+  .error-message {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
   .login-button {
     width: 100%;
   }
