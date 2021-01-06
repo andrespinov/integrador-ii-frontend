@@ -1,7 +1,7 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, withStyles } from '@material-ui/core'
 import React from 'react'
 
-const AppTable = ({ rows, columns }) => {
+const AppTable = ({ rows, columns, customProperties }) => {
   return (
     <div>
       <TableContainer component={Paper}>
@@ -16,7 +16,9 @@ const AppTable = ({ rows, columns }) => {
           <TableBody>
             {rows.map((row) => (
               <StyledTableRow key={row.id}>
-                {columns.map((column, index) => (
+                {columns.map((column, index) => customProperties[column.property] ? (
+                  customProperties[column.property]({ item: row })
+                ) : (
                   <StyledTableCell key={index} align="center">{row[column.property]}</StyledTableCell>
                 ))}
               </StyledTableRow>

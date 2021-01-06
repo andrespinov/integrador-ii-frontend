@@ -1,13 +1,16 @@
 import { IconButton } from '@material-ui/core'
-import { AddCircle } from '@material-ui/icons'
-import React from 'react'
+import { AddCircle, Edit, Delete, OpenInNew } from '@material-ui/icons'
+import React, { useCallback } from 'react'
 import { useState } from 'react'
 import { Table } from '../../components'
 import ProjectDialog from './components/ProjectDialog'
-import { ProjectsContainer } from './styles'
+import { ProjectsContainer, ProjectActions } from './styles'
 
 const Projects = () => {
-  const [openDialog, setOpenDialog] = useState(false)
+  const [dialogParams, setDialogParams] = useState({
+    open: false,
+    project: null
+  })
   const projects = [
     {
       id: '1',
@@ -23,22 +26,49 @@ const Projects = () => {
     { name: 'ID', property: 'id' },
     { name: 'Nombre', property: 'name' },
     { name: 'Description', property: 'description' },
-    { name: 'Owner', property: 'owner.name' },
-    { name: 'Address', property: 'address' }
+    { name: 'Propietario', property: 'owner.name' },
+    { name: 'Dirección', property: 'address' },
+    { name: 'Aciones', property: 'actions' }
   ]
+
+  const handleDialogParams = (open, project) => {
+    setDialogParams({ open, project })
+  }
+
+  const handleDeleteProject = useCallback((project) => {}, [])
+
+  const customProperties = {
+    actions: ({ item }) => (
+      <ProjectActions>
+        <IconButton color='primary' onClick={() => handleDialogParams(true, item)}>
+          <Edit fontSize='small' />
+        </IconButton>
+        <IconButton color='primary' onClick={() => handleDeleteProject(item)}>
+          <Delete fontSize='small' />
+        </IconButton>
+        <IconButton color='primary' onClick={() => {}}>
+          <OpenInNew fontSize='small' />
+        </IconButton>
+      </ProjectActions>
+    )
+  }
 
   return (
     <ProjectsContainer>
       <div className='content'>
         <div className='header'>
           <h1>Proyectos</h1>
-          <IconButton color='primary' onClick={() => setOpenDialog(true)}>
+          <IconButton color='primary' onClick={() => handleDialogParams(true)}>
             <AddCircle fontSize='large' />
           </IconButton>
         </div>
-        <Table rows={projects} columns={tableColumns} />
+        <Table rows={projects} columns={tableColumns} customProperties={customProperties} />
       </div>
-      <ProjectDialog open={openDialog} handleClose={() => setOpenDialog(false)} />
+      <ProjectDialog
+        open={dialogParams.open}
+        project={dialogParams.project}
+        handleClose={() => handleDialogParams(false)}
+      />
     </ProjectsContainer>
   )
 }

@@ -13,7 +13,12 @@ const ProjectsContainer = styled.div`
     justify-content: space-between;
   }
 `
+const ProjectActions = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 export {
-  ProjectsContainer
+  ProjectsContainer,
+  ProjectActions
 }
