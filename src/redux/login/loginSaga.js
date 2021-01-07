@@ -9,7 +9,7 @@ function* login(action) {
     if (token) {
       yield put(loginSuccess(token))
     } else {
-      throw 'Wrong email or password.'
+      throw 'Email o contraseña incorrectos.'
     }
   } catch (error) {
     yield put(loginFailure(error))
