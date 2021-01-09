@@ -31,14 +31,24 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loadingProjects: false,
-        projectsError: payload
+        projectsError: payload,
+        projects: [
+          {
+            id: '1',
+            name: 'Project 1',
+            description: 'This is the first project',
+            owner: {
+              name: 'Andrés Pino'
+            },
+            address: 'Cra 84A #39-43'
+          }
+        ]
       }
     
     // Set project
     case projectTypes.SET_PROJECT:
       return {
         ...state,
-        projects: [],
         loadingSetProject: true,
         setProjectError: ''
       }
@@ -67,7 +77,6 @@ export default (state = initialState, { type, payload }) => {
     case projectTypes.DELETE_PROJECT:
       return {
         ...state,
-        projects: [],
         loadingDeleteProject: true,
         deleteProjectError: ''
       }

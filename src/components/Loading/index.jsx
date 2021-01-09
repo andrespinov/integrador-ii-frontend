@@ -5,7 +5,7 @@ import { LoadingContainer } from './styles'
 const Loading = (props) => {
   return (
     <LoadingContainer>
-      <CircularProgress {...props} color='inherit' />
+      <CircularProgress color='inherit' {...props} />
     </LoadingContainer>
   )
 }

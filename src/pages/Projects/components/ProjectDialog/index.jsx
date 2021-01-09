@@ -3,6 +3,8 @@ import React, { useCallback, useEffect } from 'react'
 import { Dialog, Input } from '../../../../components'
 import * as Yup from 'yup'
 import { Grid } from '@material-ui/core'
+import { useDispatch, useSelector } from 'react-redux'
+import { setProject } from '../../../../redux/project/projectActions'
 
 const emptyProject = {
   name: '',
@@ -23,7 +25,12 @@ const validationSchema = Yup.object().shape({
 })
 
 const ProjectDialog = ({ project, open, handleClose }) => {
-  const onSubmit = useCallback(() => {}, [])
+  const dispatch = useDispatch()
+  const { loadingSetProject } = useSelector(state => state.projectReducer)
+
+  const onSubmit = useCallback((values) => {
+    dispatch(setProject(values))
+  }, [])
 
   const {
     setValues,
@@ -51,6 +58,7 @@ const ProjectDialog = ({ project, open, handleClose }) => {
       handleAction={handleSubmit}
       title={`${project ? 'Editar' : 'Crear'} proyecto`}
       actionText='Guardar'
+      actionLoading={loadingSetProject}
     >
       <div className='form'>
         <Grid container spacing={1}>

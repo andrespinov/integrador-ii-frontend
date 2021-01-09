@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import Typography from '@material-ui/core/Typography'
 
-const AppDialog = ({ open, handleClose, handleAction, actionText, children, maxWidth, title }) => {
+const AppDialog = ({ open, handleClose, handleAction, actionText, children, maxWidth, title, actionLoading }) => {
   return (
     <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} fullWidth maxWidth={maxWidth || 'sm'}>
       <DialogTitle id="customized-dialog-title" onClose={handleClose}>
@@ -19,7 +19,7 @@ const AppDialog = ({ open, handleClose, handleAction, actionText, children, maxW
         {children}
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={handleAction} color="primary">
+        <Button autoFocus onClick={handleAction} color="primary" loading={actionLoading}>
           {actionText}
         </Button>
       </DialogActions>

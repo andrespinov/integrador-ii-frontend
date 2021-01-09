@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
-const TableContainer = styled.div`
-  
+const LoadingContainer = styled.div`
+  margin: 20;
 `
 
 export {
-  TableContainer
+  LoadingContainer
 }

@@ -16,9 +16,10 @@ const getProjectsFailure = (payload) => ({
 })
 
 // Set project
-const setProject = (payload) => ({
+const setProject = (payload, callback) => ({
   type: projectTypes.SET_PROJECT,
-  payload
+  payload,
+  callback
 })
 
 const setProjectSuccess = (payload) => ({
@@ -32,9 +33,10 @@ const setProjectFailure = (payload) => ({
 })
 
 // Delete project
-const deleteProject = (payload) => ({
+const deleteProject = (payload, callback) => ({
   type: projectTypes.DELETE_PROJECT,
-  payload
+  payload,
+  callback
 })
 
 const deleteProjectSuccess = (payload) => ({

@@ -12,19 +12,21 @@ function* getProjects() {
   }
 }
 
-function* setProject({ payload }) {
+function* setProject({ payload, callback }) {
   try {
     const { data } = yield call(service[payload.id ? 'updateProject' : 'createProject'], payload)
     yield put(actions.setProjectSuccess(data))
+    if(callback) callback()
   } catch (error) {
     yield put(actions.setProjectFailure(error))
   }
 }
 
-function* deleteProject({ payload }) {
+function* deleteProject({ payload, callback }) {
   try {
     yield call(service.deleteProject, payload)
     yield put(actions.deleteProjectSuccess(payload))
+    if(callback) callback()
   } catch (error) {
     yield put(actions.deleteProjectFailure(error))
   }
