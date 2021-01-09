@@ -14,6 +14,7 @@ const LoginFormContainer = styled.div`
     margin-bottom: 30px;
   }
   .error-message {
+    font-size: 12px;
     color: red;
     font-weight: bold;
     margin-bottom: 10px;

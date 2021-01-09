@@ -30,7 +30,7 @@ const ProjectDialog = ({ project, open, handleClose }) => {
 
   const onSubmit = useCallback((values) => {
     dispatch(setProject(values))
-  }, [])
+  }, [dispatch])
 
   const {
     setValues,

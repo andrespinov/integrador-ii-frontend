@@ -10,9 +10,9 @@ function timeout (ms, promise) {
 const _fetch = async (method, url, data) => {
   const token = ''
   const defaultHeaders = {}
-  const apiUrl = 'https://app-garage-back.herokuapp.com'
+  const apiUrl = 'https://integrador-ii-backend.herokuapp.com/api/v1'
 
-  defaultHeaders.Authorization = token  ? `Bearer ${token}` : ''
+  defaultHeaders.Authorization = token || ''
   defaultHeaders['Content-Type'] = 'application/json'
   // defaultHeaders.Accept = 'application/json, text/plain, */*'
 

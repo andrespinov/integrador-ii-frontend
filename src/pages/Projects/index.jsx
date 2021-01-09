@@ -46,8 +46,8 @@ const Projects = () => {
   }, [dispatch])
 
   const customProperties = {
-    actions: ({ item }) => (
-      <ProjectActions>
+    actions: ({ item, key }) => (
+      <ProjectActions key={key}>
         <IconButton color='primary' onClick={() => handleDialogParams(true, item)}>
           <Edit fontSize='small' />
         </IconButton>

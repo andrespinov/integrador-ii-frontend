@@ -12,7 +12,7 @@ function* login(action) {
       throw 'Email o contraseña incorrectos.'
     }
   } catch (error) {
-    yield put(loginFailure(error))
+    yield put(loginFailure('Email o contraseña incorrectos.'))
   }
 }
 

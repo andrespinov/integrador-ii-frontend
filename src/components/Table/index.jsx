@@ -24,7 +24,7 @@ const AppTable = ({ rows, columns, customProperties, loading }) => {
               {rows.map((row) => (
                 <StyledTableRow key={row.id}>
                   {columns.map((column, index) => customProperties[column.property] ? (
-                    customProperties[column.property]({ item: row })
+                    customProperties[column.property]({ item: row, key: index })
                   ) : (
                     <StyledTableCell key={index} align="center">{row[column.property]}</StyledTableCell>
                   ))}
