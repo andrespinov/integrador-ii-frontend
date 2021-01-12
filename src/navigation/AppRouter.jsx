@@ -9,6 +9,7 @@ import useAuthState from '../hooks/useAuthState'
 
 const AppRouter = () => {
   const { isAuthenticated } = useAuthState()
+  console.log(isAuthenticated)
 
   return (
     <Router>

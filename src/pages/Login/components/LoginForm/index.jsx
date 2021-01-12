@@ -23,18 +23,16 @@ const LoginForm = ({ onSubmit, loading, error }) => {
           errors,
           touched,
           handleChange,
-          handleBlur,
           handleSubmit,
-          isSubmitting
         }) => (
           <div className='form'>
             <div  className='header'>
-              <h1>Welcome!</h1>
-              <span>Consequat laborum fugiat dolore fugiat culpa cupidatat Lorem elit.</span>
+              <h1>Bienvenido!</h1>
+              <span>A la plataforma para construir tus sueños.</span>
             </div>
             <Input
               name='name'
-              label='Username'
+              label='Usuario'
               value={values.email}
               onChange={handleChange}
               error={Boolean(touched.name && errors.name)}
@@ -42,7 +40,7 @@ const LoginForm = ({ onSubmit, loading, error }) => {
             />
             <Input
               name='password'
-              label='Password'
+              label='Contraseña'
               value={values.email}
               onChange={handleChange}
               type='password'
@@ -53,7 +51,7 @@ const LoginForm = ({ onSubmit, loading, error }) => {
             <Button
               onClick={handleSubmit}
               className='login-button'
-              title='Log in'
+              title='Ingresar'
               loading={loading}
             />
           </div>
