@@ -3,12 +3,12 @@ import { AddCircle, Edit, Delete, OpenInNew } from '@material-ui/icons'
 import React, { useCallback, useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ConfirmationDialog, Table } from '../../components'
+import { ConfirmationDialog, Table, Topbar } from '../../components'
 import { deleteProject, getProjects } from '../../redux/project/projectActions'
 import ProjectDialog from './components/ProjectDialog'
 import { ProjectsContainer, ProjectActions } from './styles'
 
-const Projects = () => {
+const Projects = ({ history }) => {
   const dispatch = useDispatch()
   const [dialogParams, setDialogParams] = useState({
     open: false,
@@ -41,6 +41,10 @@ const Projects = () => {
     } else finishDelete()
   }, [dispatch, confirmDelete])
 
+  const handleRedirectoToProject = useCallback((project) => {
+    history.push(`/proyecto/${project.id}/transacciones`)
+  }, [])
+
   useEffect(() => {
     dispatch(getProjects())
   }, [dispatch])
@@ -54,7 +58,7 @@ const Projects = () => {
         <IconButton color='primary' onClick={() => handleDeleteProject(item)}>
           <Delete fontSize='small' />
         </IconButton>
-        <IconButton color='primary' onClick={() => {}}>
+        <IconButton color='primary' onClick={() => handleRedirectoToProject(item)}>
           <OpenInNew fontSize='small' />
         </IconButton>
       </ProjectActions>
@@ -62,34 +66,37 @@ const Projects = () => {
   }
 
   return (
-    <ProjectsContainer>
-      <div className='content'>
-        <div className='header'>
-          <h1>Proyectos</h1>
-          <IconButton color='primary' onClick={() => handleDialogParams(true)}>
-            <AddCircle fontSize='large' />
-          </IconButton>
+    <div>
+      <Topbar />
+      <ProjectsContainer>
+        <div className='content'>
+          <div className='header'>
+            <h1>Proyectos</h1>
+            <IconButton color='primary' onClick={() => handleDialogParams(true)}>
+              <AddCircle fontSize='large' />
+            </IconButton>
+          </div>
+          <Table
+            rows={projects}
+            columns={tableColumns}
+            customProperties={customProperties}
+            loading={loadingProjects}
+          />
         </div>
-        <Table
-          rows={projects}
-          columns={tableColumns}
-          customProperties={customProperties}
-          loading={loadingProjects}
+        <ProjectDialog
+          open={dialogParams.open}
+          project={dialogParams.project}
+          handleClose={() => handleDialogParams(false)}
         />
-      </div>
-      <ProjectDialog
-        open={dialogParams.open}
-        project={dialogParams.project}
-        handleClose={() => handleDialogParams(false)}
-      />
-      <ConfirmationDialog
-        open={Boolean(confirmDelete)}
-        handleClose={handleDeleteConfirmation}
-        title='Eliminar proyecto'
-        description='Está seguro que desea eliminar el proyecto?'
-        loading={loadingDeleteProject}
-      />
-    </ProjectsContainer>
+        <ConfirmationDialog
+          open={Boolean(confirmDelete)}
+          handleClose={handleDeleteConfirmation}
+          title='Eliminar proyecto'
+          description='Está seguro que desea eliminar el proyecto?'
+          loading={loadingDeleteProject}
+        />
+      </ProjectsContainer>
+    </div>
   )
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
-import Topbar from './components/Topbar'
+import Topbar from '../../components/Topbar'
 import Projects from '../Projects'
 
 const Home = () => {
@@ -10,6 +10,10 @@ const Home = () => {
       <Switch>
         <Route
           path='/proyectos'
+          component={Projects}
+        />
+        <Route
+          path='/proyecto/:id'
           component={Projects}
         />
         <Redirect to='/proyectos' />
