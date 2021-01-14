@@ -1,7 +1,6 @@
 import { IconButton } from '@material-ui/core'
 import { AddCircle, Edit, Delete, OpenInNew } from '@material-ui/icons'
-import React, { useCallback, useEffect } from 'react'
-import { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ConfirmationDialog, Table, Topbar } from '../../components'
 import { deleteProject, getProjects } from '../../redux/project/projectActions'
@@ -18,10 +17,10 @@ const Projects = ({ history }) => {
   const { loadingProjects, loadingDeleteProject, projects } = useSelector(state => state.projectReducer)
   const tableColumns = [
     { name: 'Nombre', property: 'name' },
-    { name: 'Description', property: 'description' },
+    { name: 'Descripción', property: 'description' },
     { name: 'Ciudad', property: 'city' },
     { name: 'Dirección', property: 'address' },
-    { name: 'Aciones', property: 'actions' }
+    { name: 'Acciones', property: 'actions' }
   ]
 
   const handleDialogParams = (open, project) => {

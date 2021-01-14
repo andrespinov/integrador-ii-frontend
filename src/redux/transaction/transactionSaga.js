@@ -5,8 +5,8 @@ import * as service from '../../services/transaction'
 
 function* getTransactions() {
   try {
-    const { data } = yield call(service.getTransactions)
-    yield put(actions.getTransactionsSuccess(data))
+    const transactions = yield call(service.getTransactions)
+    yield put(actions.getTransactionsSuccess(transactions))
   } catch (error) {
     yield put(actions.getTransactionsFailure(error))
   }
@@ -14,8 +14,8 @@ function* getTransactions() {
 
 function* setTransaction({ payload, callback }) {
   try {
-    const { data } = yield call(service[payload._id ? 'updateTransaction' : 'createTransaction'], payload)
-    yield put(actions.setTransactionSuccess(data))
+    const transaction = yield call(service[payload._id ? 'updateTransaction' : 'createTransaction'], payload)
+    yield put(actions.setTransactionSuccess(transaction))
     if(callback) callback()
   } catch (error) {
     yield put(actions.setTransactionFailure(error))

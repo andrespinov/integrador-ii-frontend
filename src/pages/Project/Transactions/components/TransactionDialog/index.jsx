@@ -65,19 +65,6 @@ const TransactionDialog = ({ transaction, open, handleClose }) => {
       <div className='form'>
         <Grid container spacing={1}>
           <Grid item xs={12}>
-            <KeyboardDatePicker
-              disableToolbar
-              variant="inline"
-              format="MM/dd/yyyy"
-              margin="normal"
-              id="date-picker-inline"
-              label="Date picker inline"
-              value={selectedDate}
-              onChange={handleDateChange}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-            />
             <Input
               name='date'
               label='Fecha'

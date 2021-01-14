@@ -1,4 +1,4 @@
 export default {
-  TRANSACTIONS: '/transactions',
+  TRANSACTIONS: '/transaction',
   TRANSACTION: (id) => `/transaction/${id}`
 }
