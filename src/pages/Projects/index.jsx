@@ -17,10 +17,9 @@ const Projects = ({ history }) => {
   const [confirmDelete, setConfirmDelete] = useState()
   const { loadingProjects, loadingDeleteProject, projects } = useSelector(state => state.projectReducer)
   const tableColumns = [
-    { name: 'ID', property: 'id' },
     { name: 'Nombre', property: 'name' },
     { name: 'Description', property: 'description' },
-    { name: 'Propietario', property: 'owner.name' },
+    { name: 'Ciudad', property: 'city' },
     { name: 'Dirección', property: 'address' },
     { name: 'Aciones', property: 'actions' }
   ]
@@ -30,19 +29,18 @@ const Projects = ({ history }) => {
   }
 
   const handleDeleteProject = useCallback((project) => {
-    console.log(project)
     setConfirmDelete(project)
   }, [])
 
   const handleDeleteConfirmation = useCallback((confirm) => {
     const finishDelete = () => setConfirmDelete(null)
     if (confirm) {
-      dispatch(deleteProject(confirmDelete?.id), finishDelete)
+      dispatch(deleteProject(confirmDelete?._id), finishDelete)
     } else finishDelete()
   }, [dispatch, confirmDelete])
 
   const handleRedirectoToProject = useCallback((project) => {
-    history.push(`/proyecto/${project.id}/transacciones`)
+    history.push(`/proyecto/${project._id}/transacciones`)
   }, [])
 
   useEffect(() => {

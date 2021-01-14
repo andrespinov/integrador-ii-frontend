@@ -1,35 +1,37 @@
 import { useFormik } from 'formik'
 import React, { useCallback, useEffect } from 'react'
-import { Dialog, Input } from '../../../../components'
+import { Dialog, Input } from '../../../../../components'
 import * as Yup from 'yup'
 import { Grid } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
-import { setProject } from '../../../../redux/project/projectActions'
+import { setTransaction } from '../../../../../redux/transaction/transactionActions'
 
 const emptyProject = {
-  name: '',
+  projectId: '',
+  date: new Date(),
   description: '',
-  address: '',
-  neighborhood: '',
-  city: '',
-  state: '',
+  income: false,
+  type: '',
+  value: '',
+  products: []
 }
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required(),
+  projectId: Yup.string().required(),
+  date: Yup.date().required(),
   description: Yup.string().required(),
-  address: Yup.string(),
-  neighborhood: Yup.string(),
-  city: Yup.string(),
-  state: Yup.string()
+  type: Yup.string().required(),
+  value: Yup.number().required(),
+  income: Yup.bool(),
+  products: Yup.array()
 })
 
-const ProjectDialog = ({ project, open, handleClose }) => {
+const TransactionDialog = ({ transaction, open, handleClose }) => {
   const dispatch = useDispatch()
-  const { loadingSetProject } = useSelector(state => state.projectReducer)
+  const { loadingSetTransaction } = useSelector(state => state.transactionReducer)
 
   const onSubmit = useCallback((values) => {
-    dispatch(setProject(values, handleClose))
+    dispatch(setTransaction(values))
   }, [dispatch])
 
   const {
@@ -42,34 +44,47 @@ const ProjectDialog = ({ project, open, handleClose }) => {
     handleSubmit
   } = useFormik({
     validationSchema,
-    initialValues: project || emptyProject,
+    initialValues: transaction || emptyProject,
     onSubmit
   })
 
   useEffect(() => {
-    resetForm(project || emptyProject)
-    setValues(project || emptyProject)
-  }, [setValues, resetForm, project, open])
+    resetForm(transaction || emptyProject)
+    setValues(transaction || emptyProject)
+  }, [setValues, resetForm, transaction, open])
 
   return (
     <Dialog
       open={open}
       handleClose={handleClose}
       handleAction={handleSubmit}
-      title={`${project ? 'Editar' : 'Crear'} proyecto`}
+      title={`${transaction ? 'Editar' : 'Crear'} transacción`}
       actionText='Guardar'
-      actionLoading={loadingSetProject}
+      actionLoading={loadingSetTransaction}
     >
       <div className='form'>
         <Grid container spacing={1}>
           <Grid item xs={12}>
+            <KeyboardDatePicker
+              disableToolbar
+              variant="inline"
+              format="MM/dd/yyyy"
+              margin="normal"
+              id="date-picker-inline"
+              label="Date picker inline"
+              value={selectedDate}
+              onChange={handleDateChange}
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+            />
             <Input
-              name='name'
-              label='Nombre'
-              value={values.name}
+              name='date'
+              label='Fecha'
+              value={values.date}
               onChange={handleChange}
-              error={Boolean(touched.name && errors.name)}
-              errorMessage={errors.name}
+              error={Boolean(touched.date && errors.date)}
+              errorMessage={errors.date}
             />
           </Grid>
           <Grid item xs={12}>
@@ -131,4 +146,4 @@ const ProjectDialog = ({ project, open, handleClose }) => {
   )
 }
 
-export default ProjectDialog
+export default TransactionDialog

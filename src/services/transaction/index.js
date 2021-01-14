@@ -10,7 +10,7 @@ const createTransaction = async (payload) => {
 }
 
 const updateTransaction = async (payload) => {
-  return fetch('put', routes.TRANSACTION(payload.id), payload)
+  return fetch('put', routes.TRANSACTION(payload._id), payload)
 }
 
 const deleteTransaction = async (payload) => {

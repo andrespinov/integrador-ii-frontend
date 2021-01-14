@@ -14,7 +14,7 @@ function* getTransactions() {
 
 function* setTransaction({ payload, callback }) {
   try {
-    const { data } = yield call(service[payload.id ? 'updateTransaction' : 'createTransaction'], payload)
+    const { data } = yield call(service[payload._id ? 'updateTransaction' : 'createTransaction'], payload)
     yield put(actions.setTransactionSuccess(data))
     if(callback) callback()
   } catch (error) {

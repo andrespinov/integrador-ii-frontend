@@ -5,17 +5,19 @@ import * as service from '../../services/project'
 
 function* getProjects() {
   try {
-    const { data } = yield call(service.getProjects)
-    yield put(actions.getProjectsSuccess(data))
+    const projects = yield call(service.getProjects)
+    console.log(projects)
+    yield put(actions.getProjectsSuccess(projects))
   } catch (error) {
+    console.log(error)
     yield put(actions.getProjectsFailure(error))
   }
 }
 
 function* setProject({ payload, callback }) {
   try {
-    const { data } = yield call(service[payload.id ? 'updateProject' : 'createProject'], payload)
-    yield put(actions.setProjectSuccess(data))
+    const project = yield call(service[payload._id ? 'updateProject' : 'createProject'], payload)
+    yield put(actions.setProjectSuccess(project))
     if(callback) callback()
   } catch (error) {
     yield put(actions.setProjectFailure(error))

@@ -1,6 +1,5 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import MuiDialogTitle from '@material-ui/core/DialogTitle'
 import MuiDialogContent from '@material-ui/core/DialogContent'
@@ -8,6 +7,7 @@ import MuiDialogActions from '@material-ui/core/DialogActions'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import Typography from '@material-ui/core/Typography'
+import { Button } from '..'
 
 const AppDialog = ({ open, handleClose, handleAction, actionText, children, maxWidth, title, actionLoading }) => {
   return (
@@ -19,9 +19,7 @@ const AppDialog = ({ open, handleClose, handleAction, actionText, children, maxW
         {children}
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={handleAction} color="primary" loading={actionLoading}>
-          {actionText}
-        </Button>
+        <Button autoFocus onClick={handleAction} loading={actionLoading} title={actionText} />
       </DialogActions>
     </Dialog>
   )

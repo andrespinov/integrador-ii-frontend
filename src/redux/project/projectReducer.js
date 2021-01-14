@@ -53,7 +53,7 @@ export default (state = initialState, { type, payload }) => {
         setProjectError: ''
       }
     case projectTypes.SET_PROJECT_SUCCESS: {
-      const projectIndex = state.projects.findIndex(({ id }) => id === payload.id)
+      const projectIndex = state.projects.findIndex(({ _id }) => _id === payload._id)
       const projects = projectIndex === -1 ? [
         payload,
         ...state.projects
@@ -81,7 +81,7 @@ export default (state = initialState, { type, payload }) => {
         deleteProjectError: ''
       }
     case projectTypes.DELETE_PROJECT_SUCCESS: {
-      const projects = state.projects.filter(project => project.id !== payload)
+      const projects = state.projects.filter(project => project._id !== payload)
 
       return {
         ...state,

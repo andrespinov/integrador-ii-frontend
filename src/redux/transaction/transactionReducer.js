@@ -53,7 +53,7 @@ export default (state = initialState, { type, payload }) => {
         setTransactionError: ''
       }
     case transactionTypes.SET_TRANSACTION_SUCCESS: {
-      const transactionIndex = state.transactions.findIndex(({ id }) => id === payload.id)
+      const transactionIndex = state.transactions.findIndex(({ _id }) => _id === payload._id)
       const transactions = transactionIndex === -1 ? [
         payload,
         ...state.transactions
@@ -81,7 +81,7 @@ export default (state = initialState, { type, payload }) => {
         deleteTransactionError: ''
       }
     case transactionTypes.DELETE_TRANSACTION_SUCCESS: {
-      const transactions = state.transactions.filter(transaction => transaction.id !== payload)
+      const transactions = state.transactions.filter(transaction => transaction._id !== payload)
 
       return {
         ...state,
