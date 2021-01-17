@@ -1,20 +1,20 @@
 import fetch from '../fetch'
 import routes from './routes'
 
-const getTransactions = async () => {
-  return fetch('get', routes.TRANSACTIONS)
+const getTransactions = async (projectId) => {
+  return fetch('get', routes.TRANSACTIONS({ projectId }))
 }
 
 const createTransaction = async (payload) => {
-  return fetch('post', routes.TRANSACTIONS, payload)
+  return fetch('post', routes.TRANSACTIONS({ projectId: payload.projectId }), payload)
 }
 
 const updateTransaction = async (payload) => {
-  return fetch('put', routes.TRANSACTION(payload._id), payload)
+  return fetch('put', routes.TRANSACTIONS(payload._id), payload)
 }
 
 const deleteTransaction = async (payload) => {
-  return fetch('delete', routes.TRANSACTION(payload))
+  return fetch('delete', routes.TRANSACTIONS(payload))
 }
 
 export {

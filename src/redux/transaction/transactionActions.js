@@ -1,8 +1,9 @@
 import transactionTypes from './transactionTypes'
 
 // Get transactions
-const getTransactions = () => ({
-  type: transactionTypes.GET_TRANSACTIONS
+const getTransactions = (payload) => ({
+  type: transactionTypes.GET_TRANSACTIONS,
+  payload
 })
 
 const getTransactionsSuccess = (payload) => ({

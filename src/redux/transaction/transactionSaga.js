@@ -3,9 +3,9 @@ import * as actions from './transactionActions'
 import transactionTypes from './transactionTypes'
 import * as service from '../../services/transaction'
 
-function* getTransactions() {
+function* getTransactions({ payload }) {
   try {
-    const transactions = yield call(service.getTransactions)
+    const transactions = yield call(service.getTransactions, payload)
     yield put(actions.getTransactionsSuccess(transactions))
   } catch (error) {
     yield put(actions.getTransactionsFailure(error))

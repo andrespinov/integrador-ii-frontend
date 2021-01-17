@@ -7,7 +7,7 @@ import { deleteTransaction, getTransactions } from '../../../redux/transaction/t
 import TransactionDialog from './components/TransactionDialog'
 import { TransactionsContainer, TransactionActions } from './styles'
 
-const Transactions = () => {
+const Transactions = ({ projectId }) => {
   const dispatch = useDispatch()
   const [dialogParams, setDialogParams] = useState({
     open: false,
@@ -39,8 +39,8 @@ const Transactions = () => {
   }, [dispatch, confirmDelete])
 
   useEffect(() => {
-    dispatch(getTransactions())
-  }, [dispatch])
+    dispatch(getTransactions(projectId))
+  }, [dispatch, projectId])
 
   const customProperties = {
     actions: ({ item, key }) => (

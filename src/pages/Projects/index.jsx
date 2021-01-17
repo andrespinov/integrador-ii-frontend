@@ -40,7 +40,7 @@ const Projects = ({ history }) => {
 
   const handleRedirectoToProject = useCallback((project) => {
     history.push(`/proyecto/${project._id}/transacciones`)
-  }, [])
+  }, [history])
 
   useEffect(() => {
     dispatch(getProjects())
@@ -64,7 +64,7 @@ const Projects = ({ history }) => {
 
   return (
     <div>
-      <Topbar />
+      <Topbar title='BuildingApp' />
       <ProjectsContainer>
         <div className='content'>
           <div className='header'>

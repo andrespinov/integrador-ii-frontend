@@ -1,4 +1,3 @@
 export default {
-  TRANSACTIONS: '/transaction',
-  TRANSACTION: (id) => `/transaction/${id}`
+  TRANSACTIONS: ({ id, projectId }) => `/transactions?${id ? 'id=' + id + '&&': ''}${projectId ? 'projectId=' + projectId : ''}`
 }

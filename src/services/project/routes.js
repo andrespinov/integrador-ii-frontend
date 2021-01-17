@@ -1,3 +1,3 @@
 export default {
-  PROJECT: (id) => `/project/${id ? '/' + id : ''}`
+  PROJECT: (id) => `/projects/${id || ''}`
 }

@@ -7,7 +7,7 @@ import { Menu } from '..'
 import { logout } from '../../redux/login/loginActions'
 import { MonetizationOn, ListAlt } from '@material-ui/icons'
 
-const Topbar = ({ showMenu }) => {
+const Topbar = ({ showMenu, title }) => {
   const styles = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
@@ -15,7 +15,7 @@ const Topbar = ({ showMenu }) => {
  
   const handleLogout = useCallback(() => {
     dispatch(logout())
-  }, [])
+  }, [dispatch])
 
   const menuOptions = [{
     name: 'Cerrar sesión',
@@ -58,7 +58,7 @@ const Topbar = ({ showMenu }) => {
           </>
         )}
         <Typography variant='h6' className={styles.title}>
-          BuildingApp
+          {title}
         </Typography>
         <Button color='inherit'>
           <Menu menuOptions={menuOptions}>
