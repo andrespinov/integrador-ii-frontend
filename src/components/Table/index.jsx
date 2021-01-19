@@ -45,7 +45,7 @@ const AppTable = ({ rows, columns, customProperties, loading }) => {
   )
 }
 
-const StyledTableCell = withStyles((theme) => ({
+export const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,

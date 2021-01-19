@@ -10,11 +10,11 @@ const createTransaction = async (payload) => {
 }
 
 const updateTransaction = async (payload) => {
-  return fetch('put', routes.TRANSACTIONS(payload._id), payload)
+  return fetch('put', routes.TRANSACTIONS({ id: payload._id }), payload)
 }
 
 const deleteTransaction = async (payload) => {
-  return fetch('delete', routes.TRANSACTIONS(payload))
+  return fetch('delete', routes.TRANSACTIONS({ id: payload }))
 }
 
 export {

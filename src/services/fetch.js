@@ -11,14 +11,16 @@ function timeout (ms, promise) {
 }
 
 const parseResponse = (res) => {
-  if (res && res.status < 400) return res
+  if (res && res.status < 400) return res.json()
 
-  let message = 'Algo saló mal}.'
-  if (res && (res.message === 'Invalid token')) {
-    store.dispatch(loginActions.logout())
-  }
+  let message = 'Algo saló mal.'
   if (res && res.status === 401) {
-    message = 'Usuario o contraseña incorrectos.'
+    const token = store.getState().authReducer.token
+    if (token) {
+      store.dispatch(loginActions.logout())
+    } else {
+      message = 'Usuario o contraseña incorrectos.'
+    }
   }
   const error = { message }
   return Promise.reject(error)
@@ -43,7 +45,7 @@ const _fetch = async (method, url, data) => {
   }
 
   return await timeout(60000, fetch(`${apiUrl}${url}`, requestInit)
-    .then(response => response.json())
+    .then(response => parseResponse(response))
     //.then(json => parseResponse(json))
     .catch(function (error) {
       return Promise.reject(error)

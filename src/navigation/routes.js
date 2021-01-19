@@ -29,6 +29,9 @@ const routes = [
     component: Project,
     redirectTo: (user) => (user ? undefined : MAIN_PUBLIC_PATH),
   },
+  {
+    redirectTo: (user) => (user ? MAIN_PRIVATE_PATH : MAIN_PUBLIC_PATH),
+  },
 
 ]
 

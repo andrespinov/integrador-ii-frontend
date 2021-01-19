@@ -1,24 +1,13 @@
 import { useFormik } from 'formik'
-import React, { useCallback, useEffect } from 'react'
-import { Dialog, Input } from '../../../../../components'
+import React, { useCallback, useEffect, useMemo } from 'react'
+import { Dialog, Input, Checkbox } from '../../../../../components'
 import * as Yup from 'yup'
 import { Grid } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { setTransaction } from '../../../../../redux/transaction/transactionActions'
 
-const emptyProject = {
-  projectId: '',
-  date: new Date(),
-  description: '',
-  income: false,
-  type: '',
-  value: '',
-  products: []
-}
-
 const validationSchema = Yup.object().shape({
   projectId: Yup.string().required(),
-  date: Yup.date().required(),
   description: Yup.string().required(),
   type: Yup.string().required(),
   value: Yup.number().required(),
@@ -26,13 +15,22 @@ const validationSchema = Yup.object().shape({
   products: Yup.array()
 })
 
-const TransactionDialog = ({ transaction, open, handleClose }) => {
+const TransactionDialog = ({ transaction, open, handleClose, projectId }) => {
   const dispatch = useDispatch()
   const { loadingSetTransaction } = useSelector(state => state.transactionReducer)
 
   const onSubmit = useCallback((values) => {
-    dispatch(setTransaction(values))
+    dispatch(setTransaction(values, handleClose))
   }, [dispatch])
+
+  
+  const emptyTransaction = useMemo(() => ({
+    projectId,
+    description: '',
+    income: false,
+    type: '',
+    value: ''
+  }), [projectId])
 
   const {
     setValues,
@@ -44,13 +42,13 @@ const TransactionDialog = ({ transaction, open, handleClose }) => {
     handleSubmit
   } = useFormik({
     validationSchema,
-    initialValues: transaction || emptyProject,
+    initialValues: transaction || emptyTransaction,
     onSubmit
   })
 
   useEffect(() => {
-    resetForm(transaction || emptyProject)
-    setValues(transaction || emptyProject)
+    resetForm(transaction || emptyTransaction)
+    setValues(transaction || emptyTransaction)
   }, [setValues, resetForm, transaction, open])
 
   return (
@@ -63,15 +61,14 @@ const TransactionDialog = ({ transaction, open, handleClose }) => {
       actionLoading={loadingSetTransaction}
     >
       <div className='form'>
-        <Grid container spacing={1}>
+        <Grid container spacing={1} alignItems="center">
           <Grid item xs={12}>
-            <Input
-              name='date'
-              label='Fecha'
-              value={values.date}
+            <Checkbox
+              checked={values.income}
               onChange={handleChange}
-              error={Boolean(touched.date && errors.date)}
-              errorMessage={errors.date}
+              color="primary"
+              label="Ingreso"
+              name="income"
             />
           </Grid>
           <Grid item xs={12}>
@@ -86,45 +83,24 @@ const TransactionDialog = ({ transaction, open, handleClose }) => {
               rows={4}
             />
           </Grid>
-          <Grid item xs={12}><h5>Location</h5></Grid>
           <Grid item xs={6}>
             <Input
-              name='state'
-              label='Departamento'
-              value={values.state}
+              name='type'
+              label='Tipo'
+              value={values.type}
               onChange={handleChange}
-              error={Boolean(touched.state && errors.state)}
-              errorMessage={errors.state}
+              error={Boolean(touched.type && errors.type)}
+              errorMessage={errors.type}
             />
           </Grid>
           <Grid item xs={6}>
             <Input
-              name='city'
-              label='Ciudad'
-              value={values.city}
+              name='value'
+              label='Valor'
+              value={values.value}
               onChange={handleChange}
-              error={Boolean(touched.city && errors.city)}
-              errorMessage={errors.city}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Input
-              name='address'
-              label='Dirección'
-              value={values.address}
-              onChange={handleChange}
-              error={Boolean(touched.address && errors.address)}
-              errorMessage={errors.address}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Input
-              name='neighborhood'
-              label='Barrio'
-              value={values.neighborhood}
-              onChange={handleChange}
-              error={Boolean(touched.neighborhood && errors.neighborhood)}
-              errorMessage={errors.neighborhood}
+              error={Boolean(touched.value && errors.value)}
+              errorMessage={errors.value}
             />
           </Grid>
         </Grid>

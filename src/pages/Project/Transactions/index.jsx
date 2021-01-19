@@ -6,6 +6,8 @@ import { ConfirmationDialog, Table } from '../../../components'
 import { deleteTransaction, getTransactions } from '../../../redux/transaction/transactionActions'
 import TransactionDialog from './components/TransactionDialog'
 import { TransactionsContainer, TransactionActions } from './styles'
+import moment from 'moment'
+import { StyledTableCell } from '../../../components/Table'
 
 const Transactions = ({ projectId }) => {
   const dispatch = useDispatch()
@@ -16,7 +18,7 @@ const Transactions = ({ projectId }) => {
   const [confirmDelete, setConfirmDelete] = useState()
   const { loadingTransactions, loadingDeleteTransaction, transactions } = useSelector(state => state.transactionReducer)
   const tableColumns = [
-    { name: 'Fecha', property: 'date' },
+    { name: 'Fecha', property: 'creationDate' },
     { name: 'Descripción', property: 'description' },
     { name: 'Tipo', property: 'type' },
     { name: 'Valor', property: 'value' },
@@ -52,6 +54,9 @@ const Transactions = ({ projectId }) => {
           <Delete fontSize='small' />
         </IconButton>
       </TransactionActions>
+    ),
+    creationDate: ({ item, key }) => (
+      <StyledTableCell key={key} align="center">{moment(item).format('DD MM YYYY')}</StyledTableCell>
     )
   }
 
@@ -75,8 +80,9 @@ const Transactions = ({ projectId }) => {
       </TransactionsContainer>
       <TransactionDialog
         open={dialogParams.open}
-        project={dialogParams.transaction}
+        transaction={dialogParams.transaction}
         handleClose={() => handleDialogParams(false)}
+        projectId={projectId}
       />
       <ConfirmationDialog
         open={Boolean(confirmDelete)}
