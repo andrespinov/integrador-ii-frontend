@@ -21,7 +21,7 @@ const TransactionDialog = ({ transaction, open, handleClose, projectId }) => {
 
   const onSubmit = useCallback((values) => {
     dispatch(setTransaction(values, handleClose))
-  }, [dispatch])
+  }, [dispatch, handleClose])
 
   
   const emptyTransaction = useMemo(() => ({
@@ -49,7 +49,7 @@ const TransactionDialog = ({ transaction, open, handleClose, projectId }) => {
   useEffect(() => {
     resetForm(transaction || emptyTransaction)
     setValues(transaction || emptyTransaction)
-  }, [setValues, resetForm, transaction, open])
+  }, [setValues, resetForm, transaction, open, emptyTransaction])
 
   return (
     <Dialog

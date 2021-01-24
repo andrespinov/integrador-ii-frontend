@@ -36,7 +36,7 @@ const Transactions = ({ projectId }) => {
   const handleDeleteConfirmation = useCallback((confirm) => {
     const finishDelete = () => setConfirmDelete(null)
     if (confirm) {
-      dispatch(deleteTransaction(confirmDelete?._id), finishDelete)
+      dispatch(deleteTransaction(confirmDelete?._id, finishDelete))
     } else finishDelete()
   }, [dispatch, confirmDelete])
 

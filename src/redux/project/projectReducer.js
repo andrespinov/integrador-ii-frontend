@@ -35,17 +35,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         loadingProjects: false,
         projectsError: payload,
-        projects: [
-          {
-            id: '1',
-            name: 'Project 1',
-            description: 'This is the first project',
-            owner: {
-              name: 'Andrés Pino'
-            },
-            address: 'Cra 84A #39-43'
-          }
-        ]
+        projects: []
       }
     
     // Get project

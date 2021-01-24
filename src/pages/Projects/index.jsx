@@ -34,7 +34,7 @@ const Projects = ({ history }) => {
   const handleDeleteConfirmation = useCallback((confirm) => {
     const finishDelete = () => setConfirmDelete(null)
     if (confirm) {
-      dispatch(deleteProject(confirmDelete?._id), finishDelete)
+      dispatch(deleteProject(confirmDelete?._id, finishDelete))
     } else finishDelete()
   }, [dispatch, confirmDelete])
 
