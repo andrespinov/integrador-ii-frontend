@@ -3,6 +3,7 @@ import loginReducer from './login/loginReducer'
 import authReducer from './auth/authReducer'
 import projectReducer from './project/projectReducer'
 import transactionReducer from './transaction/transactionReducer'
+import materialReducer from './material/materialReducer'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
@@ -10,7 +11,8 @@ const rootReducer = combineReducers({
   loginReducer,
   authReducer,
   projectReducer,
-  transactionReducer
+  transactionReducer,
+  materialReducer
 })
 
 const persistConfig = {

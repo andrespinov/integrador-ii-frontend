@@ -5,9 +5,9 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Menu } from '..'
 import { logout } from '../../redux/login/loginActions'
-import { MonetizationOn, ListAlt } from '@material-ui/icons'
+import { MonetizationOn, ListAlt, Business } from '@material-ui/icons'
 
-const Topbar = ({ showMenu, title }) => {
+const Topbar = ({ showMenu, title, projectId }) => {
   const styles = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
@@ -23,7 +23,8 @@ const Topbar = ({ showMenu, title }) => {
   }]
 
   const drawerOptions = [
-    { name: 'Transacciones', action: () => history.push('/transacciones'), icon: <MonetizationOn fontSize='small' /> }
+    { name: 'Transacciones', action: () => history.push(`/proyecto/${projectId}/transacciones`), icon: <MonetizationOn fontSize='small' /> },
+    { name: 'Materiales', action: () => history.push(`/proyecto/${projectId}/materiales`), icon: <Business fontSize='small' /> }
   ]
 
   return (
