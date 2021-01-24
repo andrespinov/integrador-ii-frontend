@@ -32,17 +32,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         loadingTransactions: false,
         transactionsError: payload,
-        transactions: [
-          {
-            id: '1',
-            name: 'Transaction 1',
-            description: 'This is the first transaction',
-            owner: {
-              name: 'Andrés Pino'
-            },
-            address: 'Cra 84A #39-43'
-          }
-        ]
+        transactions: []
       }
     
     // Set transaction
