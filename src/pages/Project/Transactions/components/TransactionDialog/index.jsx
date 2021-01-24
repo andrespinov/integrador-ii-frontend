@@ -8,7 +8,7 @@ import { setTransaction } from '../../../../../redux/transaction/transactionActi
 
 const validationSchema = Yup.object().shape({
   projectId: Yup.string().required(),
-  description: Yup.string().required(),
+  description: Yup.string(),
   type: Yup.string().required(),
   value: Yup.number().required(),
   income: Yup.bool(),
