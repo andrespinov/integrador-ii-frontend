@@ -2,8 +2,11 @@ import projectTypes from './projectTypes'
 
 const initialState = {
   projects: [],
+  project: null,
   loadingProjects: false,
   projectsError: '',
+  loadingProject: false,
+  projectError: '',
   loadingSetProject: false,
   setProjectError: '',
   loadingDeleteProject: false,
@@ -32,19 +35,29 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         loadingProjects: false,
         projectsError: payload,
-        projects: [
-          {
-            id: '1',
-            name: 'Project 1',
-            description: 'This is the first project',
-            owner: {
-              name: 'Andrés Pino'
-            },
-            address: 'Cra 84A #39-43'
-          }
-        ]
+        projects: []
       }
     
+    // Get project
+    case projectTypes.GET_PROJECT:
+      return {
+        ...state,
+        loadingProject: true,
+        projectError: ''
+      }
+    case projectTypes.GET_PROJECT_SUCCESS:
+      return {
+        ...state,
+        project: payload,
+        loadingProject: false,
+        projectError: ''
+      }
+    case projectTypes.GET_PROJECT_FAILURE:
+      return {
+        ...state,
+        loadingProject: false,
+        projectError: payload
+      }
     // Set project
     case projectTypes.SET_PROJECT:
       return {
@@ -53,7 +66,7 @@ export default (state = initialState, { type, payload }) => {
         setProjectError: ''
       }
     case projectTypes.SET_PROJECT_SUCCESS: {
-      const projectIndex = state.projects.findIndex(({ id }) => id === payload.id)
+      const projectIndex = state.projects.findIndex(({ _id }) => _id === payload._id)
       const projects = projectIndex === -1 ? [
         payload,
         ...state.projects
@@ -81,7 +94,7 @@ export default (state = initialState, { type, payload }) => {
         deleteProjectError: ''
       }
     case projectTypes.DELETE_PROJECT_SUCCESS: {
-      const projects = state.projects.filter(project => project.id !== payload)
+      const projects = state.projects.filter(project => project._id !== payload)
 
       return {
         ...state,

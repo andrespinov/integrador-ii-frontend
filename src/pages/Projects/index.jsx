@@ -1,7 +1,6 @@
 import { IconButton } from '@material-ui/core'
 import { AddCircle, Edit, Delete, OpenInNew } from '@material-ui/icons'
-import React, { useCallback, useEffect } from 'react'
-import { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ConfirmationDialog, Table, Topbar } from '../../components'
 import { deleteProject, getProjects } from '../../redux/project/projectActions'
@@ -17,12 +16,11 @@ const Projects = ({ history }) => {
   const [confirmDelete, setConfirmDelete] = useState()
   const { loadingProjects, loadingDeleteProject, projects } = useSelector(state => state.projectReducer)
   const tableColumns = [
-    { name: 'ID', property: 'id' },
     { name: 'Nombre', property: 'name' },
-    { name: 'Description', property: 'description' },
-    { name: 'Propietario', property: 'owner.name' },
+    { name: 'Descripción', property: 'description' },
+    { name: 'Ciudad', property: 'city' },
     { name: 'Dirección', property: 'address' },
-    { name: 'Aciones', property: 'actions' }
+    { name: 'Acciones', property: 'actions' }
   ]
 
   const handleDialogParams = (open, project) => {
@@ -30,20 +28,19 @@ const Projects = ({ history }) => {
   }
 
   const handleDeleteProject = useCallback((project) => {
-    console.log(project)
     setConfirmDelete(project)
   }, [])
 
   const handleDeleteConfirmation = useCallback((confirm) => {
     const finishDelete = () => setConfirmDelete(null)
     if (confirm) {
-      dispatch(deleteProject(confirmDelete?.id), finishDelete)
+      dispatch(deleteProject(confirmDelete?._id, finishDelete))
     } else finishDelete()
   }, [dispatch, confirmDelete])
 
   const handleRedirectoToProject = useCallback((project) => {
-    history.push(`/proyecto/${project.id}/transacciones`)
-  }, [])
+    history.push(`/proyecto/${project._id}/transacciones`)
+  }, [history])
 
   useEffect(() => {
     dispatch(getProjects())
@@ -67,7 +64,7 @@ const Projects = ({ history }) => {
 
   return (
     <div>
-      <Topbar />
+      <Topbar title='BuildingApp' />
       <ProjectsContainer>
         <div className='content'>
           <div className='header'>

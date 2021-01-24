@@ -29,8 +29,8 @@ const ProjectDialog = ({ project, open, handleClose }) => {
   const { loadingSetProject } = useSelector(state => state.projectReducer)
 
   const onSubmit = useCallback((values) => {
-    dispatch(setProject(values))
-  }, [dispatch])
+    dispatch(setProject(values, handleClose))
+  }, [dispatch, handleClose])
 
   const {
     setValues,

@@ -15,6 +15,23 @@ const getProjectsFailure = (payload) => ({
   payload
 })
 
+// Get project
+const getProject = (payload, onFailure) => ({
+  type: projectTypes.GET_PROJECT,
+  payload,
+  onFailure
+})
+
+const getProjectSuccess = (payload) => ({
+  type: projectTypes.GET_PROJECT_SUCCESS,
+  payload
+})
+
+const getProjectFailure = (payload) => ({
+  type: projectTypes.GET_PROJECT_FAILURE,
+  payload
+})
+
 // Set project
 const setProject = (payload, callback) => ({
   type: projectTypes.SET_PROJECT,
@@ -53,6 +70,9 @@ export {
   getProjects,
   getProjectsSuccess,
   getProjectsFailure,
+  getProject,
+  getProjectSuccess,
+  getProjectFailure,
   setProject,
   setProjectSuccess,
   setProjectFailure,
