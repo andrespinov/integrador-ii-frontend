@@ -10,12 +10,14 @@ export default (state = initialState, { type, payload }) => {
     case loginTypes.LOGIN:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: ''
       }
     case loginTypes.LOGIN_SUCCESS:
       return {
         ...state,
-        loading: false
+        loading: false,
+        error: ''
       }
     case loginTypes.LOGIN_FAILURE:
       return {

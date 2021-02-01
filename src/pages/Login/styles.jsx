@@ -8,9 +8,16 @@ const LoginContainer = styled.div`
   }
 
   .panel {
+    position: relative;
     background: linear-gradient(45deg,  #FFF,  #3F51B5, pink);
     background-size: 400% 400%;
     animation: gradient 6s infinite alternate;
+  }
+
+  .building {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
   }
 
   @keyframes gradient{

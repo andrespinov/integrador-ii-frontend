@@ -4,48 +4,59 @@ import * as Yup from 'yup'
 import { Input, Button } from '../../../../components'
 import { LoginFormContainer } from './styles'
 
-const validationScheme = Yup.object().shape({
-  email: Yup.string().email().required(),
+const validationSchema = Yup.object().shape({
+  name: Yup.string().required(),
   password: Yup.string().required()
 })
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit, loading, error }) => {
 
   return (
     <LoginFormContainer>
       <Formik
-        initialValues={{ email: '', password: '' }}
-        validationScheme={validationScheme}
+        initialValues={{ name: '', password: '' }}
+        validationSchema={validationSchema}
         onSubmit={onSubmit}
-     >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting
-      }) => (
-         <div className='form'>
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleSubmit,
+        }) => (
+          <div className='form'>
             <div  className='header'>
-              <h1>Welcome!</h1>
-              <span>Consequat laborum fugiat dolore fugiat culpa cupidatat Lorem elit.</span>
+              <h1>Bienvenido!</h1>
+              <span>A la plataforma para construir tus sueños.</span>
             </div>
-           <Input
-              label='Email'
+            <Input
+              name='name'
+              label='Usuario'
               value={values.email}
               onChange={handleChange}
-           />
-           <Input
-              label='Password'
+              error={Boolean(touched.name && errors.name)}
+              errorMessage={errors.name}
+            />
+            <Input
+              name='password'
+              label='Contraseña'
               value={values.email}
               onChange={handleChange}
-           />
-           <Button className='login-button' title='Login' />
-         </div>
-       )}
-       </Formik>
+              type='password'
+              error={Boolean(touched.password && errors.password)}
+              errorMessage={errors.password}
+            />
+            {Boolean(error) && <div className='error-message'><span>{error}</span></div>}
+            <Button
+              onClick={handleSubmit}
+              className='login-button'
+              title='Ingresar'
+              loading={loading}
+            />
+          </div>
+        )}
+      </Formik>
     </LoginFormContainer>
   )
 }

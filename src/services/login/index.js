@@ -1,8 +1,8 @@
 import fetch from '../fetch'
 import routes from './routes'
 
-const login = async () => {
-  return fetch('post', routes.LOGIN)
+const login = async (payload) => {
+  return fetch('post', routes.LOGIN, payload)
 }
 
 export {

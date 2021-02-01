@@ -1,24 +1,27 @@
 import React from 'react'
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
+  Switch
 } from 'react-router-dom'
-import Home from '../pages/Home'
-import Login from '../pages/Login'
-import AuthRoute from './AuthRoute'
+import RouteItem from './components/RouteItem'
+import routes from './routes'
+import useAuthState from '../hooks/useAuthState'
 
 const AppRouter = () => {
+  const { isAuthenticated } = useAuthState()
+  console.log(isAuthenticated)
+
   return (
     <Router>
       <Switch>
-        <AuthRoute path='/login'>
-          <Login />
-        </AuthRoute>
-        <Route path='/'>
-          <Redirect to='/login' />
-        </Route>
+        {routes.map(({redirectTo, path, ...config}) => (
+          <RouteItem
+            key={path}
+            path={path}
+            redirectTo={redirectTo?.(isAuthenticated)}
+            {...config}
+          />
+        ))}
       </Switch>
     </Router>
   )

@@ -5,10 +5,14 @@ import * as services from '../../services/login'
 
 function* login(action) {
   try {
-    const data = yield call(services.login, action.payload)
-    yield put(loginSuccess(data))
+    const { token } = yield call(services.login, action.payload)
+    if (token) {
+      yield put(loginSuccess(token))
+    } else {
+      throw 'Email o contraseña incorrectos.'
+    }
   } catch (error) {
-    yield put(loginFailure(error))
+    yield put(loginFailure('Email o contraseña incorrectos.'))
   }
 }
 
