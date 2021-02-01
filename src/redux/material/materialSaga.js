@@ -15,7 +15,11 @@ function* getMaterials({ payload }) {
 function* setMaterial({ payload, callback }) {
   try {
     const material = yield call(service[payload._id ? 'updateMaterial' : 'createMaterial'], payload)
-    yield put(actions.setMaterialSuccess(material))
+    const newMaterial = material ? {
+      ...material,
+      ...payload
+    } : payload
+    yield put(actions.setMaterialSuccess(newMaterial))
     if(callback) callback()
   } catch (error) {
     yield put(actions.setMaterialFailure(error))
