@@ -11,7 +11,8 @@ function timeout (ms, promise) {
 }
 
 const parseResponse = (res) => {
-  if (res && res.status < 400) return res.json()
+  console.log('body', res.body)
+  if (res && res.status < 400) return res?.json ? res.json() : {}
 
   let message = 'Algo saló mal.'
   if (res && res.status === 401) {
@@ -48,6 +49,7 @@ const _fetch = async (method, url, data) => {
     .then(response => parseResponse(response))
     //.then(json => parseResponse(json))
     .catch(function (error) {
+      console.log(error)
       return Promise.reject(error)
     })
   )
