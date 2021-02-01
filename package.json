@@ -46,5 +46,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^7.0.0",
+    "sw-precache-webpack-plugin": "^1.0.0",
+    "webpack-manifest-plugin": "^3.0.0"
   }
 }
